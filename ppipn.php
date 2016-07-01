@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 1.0
- * @package HSoMC PayPal
+ * @package PayPal IPN processor
  * @copyright (c) 2014 Image Innovation
  * @license GPL, http://www.gnu.org/copyleft/gpl.html
  * @author Max A. Schneider
