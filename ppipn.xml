@@ -35,13 +35,14 @@
 				<field
 					name="logLevel"
 					type="list"
-					default="3"
+					default="1"
 					label="PLG_SYSTEM_PPIPN_LOGLEVEL_LABEL"
 					description="PLG_SYSTEM_PPIPN_LOGLEVEL_DESC"
 				>
-					<option value="1">PLG_SYSTEM_PPIPN_LOGLEVEL_INFORMATIONAL</option>
+					<option value="1">PLG_SYSTEM_PPIPN_LOGLEVEL_ERROR</option>
 					<option value="2">PLG_SYSTEM_PPIPN_LOGLEVEL_WARNING</option>
-					<option value="3">PLG_SYSTEM_PPIPN_LOGLEVEL_ERROR</option>
+					<option value="3">PLG_SYSTEM_PPIPN_LOGLEVEL_INFORMATIONAL</option>
+					<option value="4">PLG_SYSTEM_PPIPN_LOGLEVEL_DEBUG</option>
 				</field>
 				<field
 					name="validatePayload"
