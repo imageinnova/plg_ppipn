@@ -4,15 +4,14 @@
 	<name>plg_system_ppipn</name>
 	<author>Image Innovation</author>
 	<creationDate>June 2016</creationDate>
-	<version>0.1</version>
-	<authorEmail>info@imageinnova.com</authorEmail>
+	<version>1.0</version>
+	<authorEmail>max@imageinnova.com</authorEmail>
 	<files>
 		<filename plugin="ppipn">ppipn.php</filename>
 		<filename>ppipn.xml</filename>
 		<filename>index.html</filename>
 		<filename>LICENSE</filename>
 		<filename>README.md</filename>
-		<folder>assets</folder>
 		<folder>language</folder>
 	</files>
 	<config>
@@ -28,7 +27,7 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="logName"  type="text" default="plg_ppipn"
+				<field name="logName"  type="text" default="plg_ppipn.php"
 					label="PLG_SYSTEM_PPIPN_LOGNAME_LABEL"
 					description="PLG_SYSTEM_PPIPN_LOGNAME_DESC"
 					filter="string" />
@@ -43,16 +42,6 @@
 					<option value="2">PLG_SYSTEM_PPIPN_LOGLEVEL_WARNING</option>
 					<option value="3">PLG_SYSTEM_PPIPN_LOGLEVEL_INFORMATIONAL</option>
 					<option value="4">PLG_SYSTEM_PPIPN_LOGLEVEL_DEBUG</option>
-				</field>
-				<field
-					name="validatePayload"
-					type="radio"
-					class="btn-group btn-group-yesno"
-					default="1"
-					label="PLG_SYSTEM_PPIPN_VALIDATEPAYLOAD_LABEL"
-					description="PLG_SYSTEM_PPIPN_VALIDATEPAYLOAD_DESC" >
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
 				</field>
 				<field
 					name="storeData"
