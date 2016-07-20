@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.0
+ * @version 1.1
  * @package PayPal IPN processor
  * @copyright (c) 2016 Image Innovation
  * @license GPL, http://www.gnu.org/copyleft/gpl.html
@@ -72,34 +72,26 @@ class plgSystemPPIPN extends JPlugin
 			JLog::add('Arrived in plugin task', JLog::DEBUG, $this->name);
 		endif;
 		
-		// Retrieve the original post
-		$input = JFactory::getApplication()->input;
-		$postData = $input->getArray(array_flip(array_keys($_POST)));
-
-		// get the associated form submission
-		$db = JFactory::getDBO();
-
-		// fields used for transaction validation
-		$code = $db->getEscaped(JRequest::getVar('code'));
-		$formId = JRequest::getInt('formId');
-
-		if($this->params['log'] && 3 <= $this->params['logLevel']):
-			JLog::add("Form ID: {$formId} Submission ID: {$SubmissionId}", JLog::INFO, $this->name);
-		endif;
-		
 		// update submission with txn_id
 		if ($this->params['storeData']):
-			$this::updateDb('txn_id', $db, $formId, $SubmissionId);
-			$this::updateDb('payment_status', $db, $formId, $SubmissionId);
-			$this::updateDb('payment_date', $db, $formId, $SubmissionId);
-			$this::updateDb('first_name', $db, $formId, $SubmissionId);
-			$this::updateDb('last_name', $db, $formId, $SubmissionId);
-			$this::updateDb('payer_email', $db, $formId, $SubmissionId);
-			$this::updateDb('address_street', $db, $formId, $SubmissionId);
-			$this::updateDb('address_city', $db, $formId, $SubmissionId);
-			$this::updateDb('address_state', $db, $formId, $SubmissionId);
-			$this::updateDb('address_zip', $db, $formId, $SubmissionId);
-			$this::updateDb('address_status', $db, $formId, $SubmissionId);
+			// Retrieve the original post
+			$input = JFactory::getApplication()->input;
+			$postData = $input->getArray(array_flip(array_keys($_POST)));
+	
+			// get the associated form submission
+			$db = JFactory::getDBO();
+	
+			// fields used for transaction validation
+			$code = $db->getEscaped(JRequest::getVar('code'));
+			$formId = JRequest::getInt('formId');
+	
+			if($this->params['log'] && 3 <= $this->params['logLevel']):
+				JLog::add("Form ID: {$formId} Submission ID: {$SubmissionId}", JLog::INFO, $this->name);
+			endif;
+			
+			foreach ($postData as $key => $value) {
+					$this::updateDb($key, $value, $db, $formId, $SubmissionId);
+			}
 		endif;
 		
 		if($this->params['log'] && 3 <= $this->params['logLevel']):
@@ -108,9 +100,7 @@ class plgSystemPPIPN extends JPlugin
 	}
 
 	// update submission with supplied argument from input
-	function updateDb($argument, $db, $formId, $submissionId) {
-		$value = JRequest::getVar($argument);
-
+	function updateDb($argument, $value, $db, $formId, $submissionId) {
 		$query = $db->getQuery(true);
 		$conditions = array(
 			$db->quoteName("FormId") . " = " . $formId,
@@ -125,6 +115,7 @@ class plgSystemPPIPN extends JPlugin
 		$db->execute();
 
 		$count = $db->getAffectedRows();
+
 		if($this->params['log'] && 3 <= $this->params['logLevel']):
 			JLog::add("Updating ipn_{$argument} to {$value}, rows updated: {$count}", JLog::DEBUG, $this->name);
 		endif;
